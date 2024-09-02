@@ -1,13 +1,13 @@
-package com.example.demo;
+package com.linvest21.employee_management_system;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class DemoApplication {
+public class EmployeeManagementSystemApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(DemoApplication.class, args);
+		SpringApplication.run(EmployeeManagementSystemApplication.class, args);
 	}
 
 }

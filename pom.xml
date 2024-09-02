@@ -8,11 +8,11 @@
 		<version>3.3.3</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.example</groupId>
-	<artifactId>demo</artifactId>
+	<groupId>com.linvest21</groupId>
+	<artifactId>employee_management_system</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>demo</name>
-	<description>Demo project for Spring Boot</description>
+	<name>employee_management_system</name>
+	<description>Employee Management System Project</description>
 	<url/>
 	<licenses>
 		<license/>
