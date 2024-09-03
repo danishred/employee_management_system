@@ -5,9 +5,12 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "employees")
@@ -18,15 +21,19 @@ public class Employee {
     private Long id;
 
     @NotBlank(message = "Name is mandatory")
+    @Size(max = 255, message = "Name should not be more than 255 characters")
     private String name;
 
-    @Email(message = "Email should be valid")
     @NotBlank(message = "Email is mandatory")
+    @Email(message = "Email should be valid")
     private String email;
 
+    @NotNull(message = "Salary is mandatory")
     @Positive(message = "Salary must be positive")
+    @Digits(integer = 8, fraction = 2, message = "Salary must be a number with max 8 digits and 2 decimals")
     private Double salary;
 
+    @NotBlank(message = "Department is mandatory")
     private String department;
 
     // Getters and Setters (for fetching and adding values to private variables)
