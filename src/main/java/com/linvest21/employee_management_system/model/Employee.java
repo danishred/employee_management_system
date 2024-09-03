@@ -71,11 +71,11 @@ public class Employee {
         this.department = department;
     }
 
-    // Default Constructor: Provided for JPA.
+    // For creating instance without value
     public Employee() {
     }
 
-    // Parameterized Constructor: Convenient for creating instances with initial values.
+    // for creating instances with initial values.
     public Employee(Long id, @NotBlank(message = "Name is mandatory") String name,
             @Email(message = "Email should be valid") @NotBlank(message = "Email is mandatory") String email,
             @Positive(message = "Salary must be positive") Double salary, String department) {
