@@ -34,13 +34,14 @@ for schema migration jobs.
 
 3. Run Docker Desktop.
 
-4. In terminal write command : docker compose up -d (The postgres container would now be visible in the container application).
+4. In terminal write command : "docker compose up -d"
+    - The postgres container would now be visible in the container application)
+    - That is all needed to setup your database
 
-5. Run the SpringBoot server: 
-location: employee_management_system\src\main\java\com\linvest21\employee_management_system
-filename: EmployeeManagementSystemApplication.java
+6. Run the SpringBoot server: 
+    - location: employee_management_system\src\main\java\com\linvest21\employee_management_system
+    - filename: EmployeeManagementSystemApplication.java
 
-6. You can now use Postman to check all the endpoints available.
-Also you can access API documentations from Swagger through: http://localhost:8080/swagger-ui/index.html#/
-I have also shared all the API endpoints collection in the repository with the filename: EmployeeManagementSystem.postman_collection.json
-You can import it in your Postman and perform further testing.
+6. Accessing API endpoints
+    -  I have also shared all the API endpoints collection in the repository with the filename: EmployeeManagementSystem.postman_collection.json. You can import it in your Postman and perform further testing.
+    - Also you can access API documentations from Swagger through: http://localhost:8080/swagger-ui/index.html#/
