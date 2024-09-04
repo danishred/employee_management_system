@@ -5,7 +5,7 @@ FROM openjdk:21-jdk-slim
 WORKDIR /app
 
 # Copy the JAR file into the container
-COPY target/employee_management_system-0.0.1-SNAPSHOT.jar /app/employee_management_system.jar
+COPY employee_management_system-0.0.1-SNAPSHOT.jar /app/employee_management_system.jar
 
 # Expose the port on which your application will run
 EXPOSE 8080
