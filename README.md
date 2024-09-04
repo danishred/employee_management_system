@@ -43,5 +43,6 @@ for schema migration jobs.
     - filename: EmployeeManagementSystemApplication.java
 
 6. Accessing API endpoints
-    -  I have also shared all the API endpoints collection in the repository with the filename: EmployeeManagementSystem.postman_collection.json. You can import it in your Postman and perform further testing.
+    - I have also shared all the API endpoints collection in the repository with the filename: "EmployeeManagementSystem.postman_collection.json".
+      You can import it in your Postman and perform further testing.
     - Also you can access API documentations from Swagger through: http://localhost:8080/swagger-ui/index.html#/
