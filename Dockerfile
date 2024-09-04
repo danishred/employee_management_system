@@ -1,15 +1,14 @@
-# Use the official OpenJDK 21 image as the base image
+# Use a base image with Java
 FROM openjdk:21-jdk-slim
 
 # Set the working directory in the container
 WORKDIR /app
 
 # Copy the JAR file into the container
-# Replace 'your-application.jar' with the actual name of your JAR file
-COPY target/employee_management_system.jar /app/employee_management_system.jar
+COPY target/employee_management_system-0.0.1-SNAPSHOT.jar /app/employee_management_system.jar
 
 # Expose the port on which your application will run
 EXPOSE 8080
 
-# Specify the command to run your application
+# Command to run the application
 ENTRYPOINT ["java", "-jar", "/app/employee_management_system.jar"]
