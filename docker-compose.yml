@@ -11,5 +11,9 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     restart: unless-stopped
+
+networks:
+  db:
+    driver:bridge    
 volumes:
   postgres_data:  
