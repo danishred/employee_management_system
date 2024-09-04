@@ -1,6 +1,5 @@
 package com.linvest21.employee_management_system.service;
 
-
 import com.linvest21.employee_management_system.exception.ResourceNotFoundException;
 import com.linvest21.employee_management_system.model.Employee;
 import com.linvest21.employee_management_system.repository.EmployeeRepository;
@@ -10,6 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -30,7 +30,7 @@ class EmployeeServiceTest {
         Employee employee = new Employee();
         employee.setName("John Doe");
         employee.setEmail("john@example.com");
-        employee.setSalary(50000.0);
+        employee.setSalary(BigDecimal.valueOf(50000.0));
         employee.setDepartment("IT");
 
         when(employeeRepository.save(any(Employee.class))).thenReturn(employee);
@@ -55,6 +55,21 @@ class EmployeeServiceTest {
         assertNotNull(foundEmployee);
         assertEquals(1L, foundEmployee.getId());
         assertEquals("John Doe", foundEmployee.getName());
+    }
+
+    @Test
+    void testCreateEmployee_Failed() {
+        Employee employee = new Employee();
+        employee.setName("John Doe");
+        employee.setEmail("john@example.com");
+        employee.setSalary(BigDecimal.valueOf(50000.0));
+        employee.setDepartment("IT");
+
+        when(employeeRepository.save(any(Employee.class))).thenThrow(new RuntimeException("Database error"));
+
+        assertThrows(RuntimeException.class, () -> {
+            employeeService.save(employee);
+        });
     }
 
     @Test

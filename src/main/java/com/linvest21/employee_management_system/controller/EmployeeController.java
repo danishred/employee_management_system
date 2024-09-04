@@ -36,19 +36,21 @@ public class EmployeeController {
         }
     }
 
-    @GetMapping
+    @GetMapping()
     public ResponseEntity<List<Employee>> getAllEmployees() {
         List<Employee> employees = employeeService.findAll();
         return new ResponseEntity<>(employees, HttpStatus.OK);
     }
 
     @GetMapping("/custom")
-    public Page<Employee> getAllEmployees(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size,
-            @RequestParam(defaultValue = "id") String sortBy,
-            @RequestParam(defaultValue = "asc") String sortDir) {
-        return employeeService.findAllEmployees(page, size, sortBy, sortDir);
+    public ResponseEntity<Page<Employee>> getEmployees(
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "10") int size,
+            @RequestParam(value = "sortBy", defaultValue = "id") String sortBy,
+            @RequestParam(value = "sortDir", defaultValue = "asc") String sortDir) {
+
+        // Call service method with parameters
+        return ResponseEntity.ok(employeeService.findAllEmployees(page, size, sortBy, sortDir));
     }
 
     @PutMapping("/{id}")
@@ -62,12 +64,12 @@ public class EmployeeController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteEmployee(@PathVariable Long id) {
+    public ResponseEntity<String> deleteEmployee(@PathVariable Long id) {
         boolean isDeleted = employeeService.delete(id);
         if (isDeleted) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            return ResponseEntity.ok("Employee with ID " + id + " deleted");
         } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Employee not found");
         }
     }
 }

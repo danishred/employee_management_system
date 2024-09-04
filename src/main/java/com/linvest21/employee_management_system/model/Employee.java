@@ -11,6 +11,8 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
+import java.math.BigDecimal;
+import jakarta.persistence.Column;
 
 @Entity
 @Table(name = "employees")
@@ -31,7 +33,8 @@ public class Employee {
     @NotNull(message = "Salary is mandatory")
     @Positive(message = "Salary must be positive")
     @Digits(integer = 8, fraction = 2, message = "Salary must be a number with max 8 digits and 2 decimals")
-    private Double salary;
+    @Column(precision = 10, scale = 2) // Define precision and scale
+    private BigDecimal salary;
 
     @NotBlank(message = "Department is mandatory")
     private String department;
@@ -62,11 +65,11 @@ public class Employee {
         this.email = email;
     }
 
-    public Double getSalary() {
+    public BigDecimal getSalary() {
         return salary;
     }
-
-    public void setSalary(Double salary) {
+    
+    public void setSalary(BigDecimal salary) {
         this.salary = salary;
     }
 
@@ -85,7 +88,7 @@ public class Employee {
     // for creating instances with initial values.
     public Employee(Long id, @NotBlank(message = "Name is mandatory") String name,
             @Email(message = "Email should be valid") @NotBlank(message = "Email is mandatory") String email,
-            @Positive(message = "Salary must be positive") Double salary, String department) {
+            @Positive(message = "Salary must be positive") BigDecimal salary, String department) {
         this.id = id;
         this.name = name;
         this.email = email;

@@ -1,5 +1,6 @@
 package com.linvest21.employee_management_system.service;
 
+import com.linvest21.employee_management_system.exception.InvalidRequestParameterException;
 import com.linvest21.employee_management_system.exception.ResourceNotFoundException;
 import com.linvest21.employee_management_system.model.Employee;
 import com.linvest21.employee_management_system.repository.EmployeeRepository;
@@ -10,6 +11,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -61,13 +63,35 @@ public class EmployeeService {
     }
 
     public Page<Employee> findAllEmployees(int page, int size, String sortBy, String sortDir) {
-        try {
+            validatePageAndSize(page, size);
+            validateSortBy(sortBy);
+            validateSortDir(sortDir);
             Sort sort = sortDir.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortBy).ascending()
                     : Sort.by(sortBy).descending();
             Pageable pageable = PageRequest.of(page, size, sort);
             return employeeRepository.findAll(pageable);
-        } catch (Exception e) {
-            throw new RuntimeException("Pagination service not working", e);
+    }
+
+    private void validatePageAndSize(int page, int size) {
+        if (page < 0) {
+            throw new InvalidRequestParameterException("Page must be a non-negative integer.");
+        }
+        if (size < 1) {
+            throw new InvalidRequestParameterException("Size must be a positive integer.");
+        }
+    }
+
+    private void validateSortBy(String sortBy) {
+        // List of valid fields
+        List<String> validSortFields = Arrays.asList("id", "name", "email", "salary");
+        if (!validSortFields.contains(sortBy)) {
+            throw new InvalidRequestParameterException("Invalid sort field: " + sortBy);
+        }
+    }
+
+    private void validateSortDir(String sortDir) {
+        if (!sortDir.equalsIgnoreCase("asc") && !sortDir.equalsIgnoreCase("desc")) {
+            throw new InvalidRequestParameterException("Invalid sort direction: " + sortDir);
         }
     }
 

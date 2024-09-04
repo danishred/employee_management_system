@@ -37,6 +37,11 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(InvalidRequestParameterException.class)
+    public ResponseEntity<String> handleInvalidRequestParameter(InvalidRequestParameterException ex) {
+        return ResponseEntity.badRequest().body(ex.getMessage());
+    }
+    
     @ExceptionHandler(Exception.class)
     public ResponseEntity<String> handleGlobalException(Exception ex, WebRequest request) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
