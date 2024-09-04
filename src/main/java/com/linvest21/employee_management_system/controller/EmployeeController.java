@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -36,6 +37,15 @@ public class EmployeeController {
     public ResponseEntity<List<Employee>> getAllEmployees() {
         List<Employee> employees = employeeService.findAll();
         return new ResponseEntity<>(employees, HttpStatus.OK);
+    }
+
+    @GetMapping("/employees")
+    public Page<Employee> getAllEmployees(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "id") String sortBy,
+            @RequestParam(defaultValue = "asc") String sortDir) {
+        return employeeService.findAllEmployees(page, size, sortBy, sortDir);
     }
 
     @PutMapping("/{id}")
