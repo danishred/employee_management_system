@@ -1,21 +1,20 @@
 package com.linvest21.employee_management_system.service;
 
+import com.linvest21.employee_management_system.repository.EmployeeRepository;
 import com.linvest21.employee_management_system.exception.ResourceNotFoundException;
 import com.linvest21.employee_management_system.model.Employee;
-import com.linvest21.employee_management_system.repository.EmployeeRepository;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-
+import static org.junit.jupiter.api.Assertions.*;
+import org.mockito.Mock;
+import org.junit.jupiter.api.extension.ExtendWith;
 import java.math.BigDecimal;
 import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
+// includes Unit tests (using both Junit and Mockito)
 @ExtendWith(MockitoExtension.class)
 class EmployeeServiceTest {
 
@@ -25,28 +24,30 @@ class EmployeeServiceTest {
     @InjectMocks
     private EmployeeService employeeService;
 
+    //  Pass Test for create employee
     @Test
     void testCreateEmployee() {
         Employee employee = new Employee();
-        employee.setName("John Doe");
-        employee.setEmail("john@example.com");
-        employee.setSalary(BigDecimal.valueOf(50000.0));
-        employee.setDepartment("IT");
+        employee.setName("edward kenway");
+        employee.setEmail("anything@example.com");
+        employee.setSalary(BigDecimal.valueOf(45000.0));
+        employee.setDepartment("HR");
 
         when(employeeRepository.save(any(Employee.class))).thenReturn(employee);
 
         Employee savedEmployee = employeeService.save(employee);
 
         assertNotNull(savedEmployee);
-        assertEquals("John Doe", savedEmployee.getName());
-        assertEquals("john@example.com", savedEmployee.getEmail());
+        assertEquals("edward kenway", savedEmployee.getName());
+        assertEquals("anything@example.com", savedEmployee.getEmail());
     }
 
+    // Pass Test for get Employee id
     @Test
     void testGetEmployeeById() {
         Employee employee = new Employee();
         employee.setId(1L);
-        employee.setName("John Doe");
+        employee.setName("duncan walpole");
 
         when(employeeRepository.findById(1L)).thenReturn(Optional.of(employee));
 
@@ -54,16 +55,17 @@ class EmployeeServiceTest {
 
         assertNotNull(foundEmployee);
         assertEquals(1L, foundEmployee.getId());
-        assertEquals("John Doe", foundEmployee.getName());
+        assertEquals("duncan walpole", foundEmployee.getName());
     }
 
+    // Fail case for test Employee
     @Test
     void testCreateEmployee_Failed() {
         Employee employee = new Employee();
-        employee.setName("John Doe");
-        employee.setEmail("john@example.com");
+        employee.setName("ezio auditore");
+        employee.setEmail("auditore@example.com");
         employee.setSalary(BigDecimal.valueOf(50000.0));
-        employee.setDepartment("IT");
+        employee.setDepartment("ASSASSINATION");
 
         when(employeeRepository.save(any(Employee.class))).thenThrow(new RuntimeException("Database error"));
 
@@ -72,6 +74,7 @@ class EmployeeServiceTest {
         });
     }
 
+    // fail case for get employee by id
     @Test
     void testGetEmployeeById_NotFound() {
         when(employeeRepository.findById(1L)).thenReturn(Optional.empty());

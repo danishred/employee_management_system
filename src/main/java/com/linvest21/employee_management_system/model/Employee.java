@@ -4,20 +4,21 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 import jakarta.validation.constraints.Digits;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Email;
 import java.math.BigDecimal;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.persistence.Table;
+import jakarta.validation.constraints.Positive;
 import jakarta.persistence.Column;
 
 @Entity
 @Table(name = "employees")
 public class Employee {
 
+    // Employee entity annotated with validators
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -39,7 +40,10 @@ public class Employee {
     @NotBlank(message = "Department is mandatory")
     private String department;
 
+
+    
     // Getters and Setters (for fetching and adding values to private variables)
+
 
     public Long getId() {
         return id;
@@ -68,7 +72,7 @@ public class Employee {
     public BigDecimal getSalary() {
         return salary;
     }
-    
+
     public void setSalary(BigDecimal salary) {
         this.salary = salary;
     }
@@ -85,6 +89,8 @@ public class Employee {
     public Employee() {
     }
 
+
+
     // for creating instances with initial values.
     public Employee(Long id, @NotBlank(message = "Name is mandatory") String name,
             @Email(message = "Email should be valid") @NotBlank(message = "Email is mandatory") String email,
@@ -96,7 +102,7 @@ public class Employee {
         this.department = department;
     }
 
-    // hashCode(): Ensures that equal objects have the same hash code, which is crucial for using entities in collections that rely on hashing.
+    //Ensures that equal objects have the same hash code, crucial for using entities in collections that rely on hashing (no use currently but added anyway)
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -109,7 +115,7 @@ public class Employee {
         return result;
     }
 
-    // equals(): Checks equality based on the id field, ensuring that entities are considered equal if they have the same ID.
+    // equality check based on the id field, entities are considered equal if they have the same ID.
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
